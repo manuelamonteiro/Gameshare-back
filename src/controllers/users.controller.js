@@ -25,9 +25,15 @@ export async function postSingIn(req, res) {
 
     try {
         const userExists = await collectionUsers.findOne({ email });
+
+        if (!userExists) {
+            res.status(401).send({ message: "E-mail ou senha incorretos!" });
+            return;
+        }
+
         const passwordOk = bcrypt.compareSync(password, userExists.password);
 
-        if (!userExists || !passwordOk) {
+        if (!passwordOk) {
             res.status(401).send({ message: "E-mail ou senha incorretos!" });
             return;
         }

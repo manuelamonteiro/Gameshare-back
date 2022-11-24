@@ -20,11 +20,6 @@ export async function userSignUp(req, res, next) {
             res.status(422).send(error);
             return;
         }
-
-        if (user.password !== user.passwordConfirm) {
-            res.status(400).send({ message: "As senhas digitadas são diferentes!" });
-            return;
-        }
     } catch (error) {
         res.status(500).send(error);
     }
