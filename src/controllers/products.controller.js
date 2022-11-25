@@ -47,11 +47,8 @@ export async function getProductById(req, res) {
   try {
     const product = await collectionProducts.findOne({ _id: ObjectId(id) });
 
-    console.log(product);
-
     if (!product) return res.sendStatus(404);
 
-    console.log(product);
     res.send(product);
   } catch (error) {
     res.status(500).send(error);
