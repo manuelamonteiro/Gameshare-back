@@ -17,4 +17,5 @@ export const collectionUsers = db.collection("users");
 export const collectionSessions = db.collection("sessions");
 export const collectionProducts = db.collection("products");
 export const collectionCategories = db.collection("categories");
+export const collectionPurchases = db.collection("purchases");
 export const collectionAddress = db.collection("address");
