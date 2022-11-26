@@ -37,6 +37,8 @@ export async function postSingIn(req, res) {
       return;
     }
 
+    await collectionSessions.deleteOne({ userId: userExists._id });
+
     await collectionSessions.insertOne({
       token,
       userId: userExists._id,
