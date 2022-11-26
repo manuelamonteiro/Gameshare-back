@@ -1,4 +1,5 @@
 import { purchaseSchema } from "../schemas/purchaseSchema.js";
+import { collectionSessions } from "../database/db.js";
 
 export async function validatePurchase(req, res, next) {
   const validationStatus = purchaseSchema.validate(req.body, { abortEarly: false });
@@ -9,5 +10,16 @@ export async function validatePurchase(req, res, next) {
     return;
   }
 
+  const authorization = req.headers.authorization;
+  const token = authorization?.replace("Bearer ", "");
+
+  const user = await collectionSessions.findOne({ token });
+
+  if (!user) {
+    res.sendStatus(401);
+    return;
+  }
+
+  res.locals.user = user;
   next();
 }

@@ -2,7 +2,9 @@ import { ObjectId } from "mongodb";
 import { collectionPurchases } from "../database/db.js";
 
 export async function insertPurchase(req, res) {
-  const { userId, products, priceByDay } = req.body;
+  const { products, priceByDay } = req.body;
+  const { userId } = res.locals.user;
+
   const date = new Date();
   const todayDate = date.toLocaleDateString();
 
