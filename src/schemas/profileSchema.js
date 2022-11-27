@@ -8,7 +8,7 @@ export const userChanged = joi.object({
 export const passwordChanged = joi.object({
     oldPassword: joi.string().required(),
     newPassword: joi.string().min(6).required(),
-    newPasswordConfirm: joi.string().min(6).valid(joi.ref("password")).required()
+    newPasswordConfirm: joi.string().min(6).valid(joi.ref("newPassword")).required()
 });
 
  export const addressSchema = joi.object({
