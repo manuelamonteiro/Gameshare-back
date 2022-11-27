@@ -2,16 +2,19 @@ import { ObjectId } from "mongodb";
 import { collectionProducts, collectionCategories } from "../database/db.js";
 
 export async function insertProduct(req, res) {
-  const product = req.body;
+  const products = req.body;
 
   try {
-    const category = await collectionCategories.findOne({ name: product.category });
+    products.forEach(async (product) => {
+      const category = await collectionCategories.findOne({ name: product.category });
 
-    if (!category) {
-      res.sendStatus(422);
-    }
+      if (!category) {
+        res.sendStatus(422);
+      }
 
-    await collectionProducts.insertOne({ ...product, category: category._id });
+      await collectionProducts.insertOne({ ...product, category: category._id });
+    });
+
     res.sendStatus(200);
   } catch (error) {
     res.status(500).send(error);
